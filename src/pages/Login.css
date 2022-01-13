@@ -1,8 +1,7 @@
-/* .App {
+Login {
   text-align: center;
 }
-
-.App-logo {
+Login-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -17,12 +16,11 @@
 
 @media ( prefers-reduced-motion : no-preference ) {
 
-  .App-logo {
+Login-logo {
     animation: shake infinite 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   }
 }
-
-.App-header {
+Login-header {
   align-items: center;
   background-color: #282c34;
   color: white;
@@ -32,8 +30,7 @@
   justify-content: center;
   min-height: 100vh;
 }
-
-.App-link {
+Login-link {
   color: #61dafb;
 }
 
@@ -54,4 +51,4 @@
   40%, 60% {
     transform: translate3d(4px, 0, 0);
   }
-} */
+}
