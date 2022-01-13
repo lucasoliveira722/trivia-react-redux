@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import logo from '../trivia.png';
-import './Login.css';
+// import './Login.css';
 import { login } from '../redux/actions';
 
 class Login extends Component {
@@ -32,9 +32,9 @@ class Login extends Component {
 
   onHandleClick() {
     const { dispatch, history } = this.props;
-    const { email } = this.state;
+    const { email, name } = this.state;
 
-    dispatch(login(email));
+    dispatch(login({ email, name }));
 
     history.push('/game');
     // console.log('Feito');
