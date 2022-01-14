@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Login.css';
 import { login, setAddToken } from '../redux/actions';
-import tokenFetch from '../services/index';
+import { tokenFetch } from '../services/index';
 
 class Login extends Component {
   constructor() {
