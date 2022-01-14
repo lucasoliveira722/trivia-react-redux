@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './Header.css';
 import md5 from 'crypto-js/md5';
+// import loginReducer from '../../redux/reducers/login';
 
 class Header extends Component {
   getImageEmail = (email) => {
@@ -15,6 +16,7 @@ class Header extends Component {
       email,
       username,
     } = this.props;
+    console.log(this.props);
     return (
       <div id="header">
         <img

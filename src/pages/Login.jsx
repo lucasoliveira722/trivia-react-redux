@@ -32,8 +32,8 @@ class Login extends Component {
 
   async onHandleClick() {
     const { dispatch, history } = this.props;
-    const { email } = this.state;
-    dispatch(login(email));
+    const { email, name } = this.state;
+    dispatch(login({ email, name }));
     const token = await tokenFetch();
     dispatch(setAddToken(token));
     history.push('/game');
@@ -124,6 +124,7 @@ const mapStateToProps = (state) => ({
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  getToken: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
