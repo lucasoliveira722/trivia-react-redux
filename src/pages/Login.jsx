@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import logo from '../trivia.png';
 import './Login.css';
 import { login, setAddToken } from '../redux/actions';
 import tokenFetch from '../services/index';
