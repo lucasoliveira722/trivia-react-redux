@@ -25,7 +25,7 @@ class Game extends Component {
 }
 
 Game.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
+  questionsFromAPI: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
