@@ -19,9 +19,9 @@ export const saveQuestions = (payload) => ({
   payload,
 });
 
-export const getQuestionsFromAPI = () => async (dispatch) => {
+export const getQuestionsFromAPI = (token) => async (dispatch) => {
   try {
-    const getQuestions = await getQuestionsAPI();
+    const getQuestions = await getQuestionsAPI(token);
     dispatch(saveQuestions(getQuestions));
   } catch (error) {
     console.error(error);

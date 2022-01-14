@@ -15,6 +15,7 @@ export async function getQuestionsAPI(token) {
   const questionsFetch = await fetch(`${questionsRequest}${token}`);
   const questionJson = await questionsFetch.json();
   if (questionJson.response_code === 0) {
+    console.log(questionJson);
     return questionJson;
   }
   getQuestionsAPI(tokenFetch());
