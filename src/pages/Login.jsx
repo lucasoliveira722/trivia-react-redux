@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import logo from '../trivia.png';
-// import './Login.css';
-import { login } from '../redux/actions';
+import './Login.css';
+import { login, setAddToken } from '../redux/actions';
+import tokenFetch from '../services/index';
 
 class Login extends Component {
   constructor() {
@@ -30,21 +30,18 @@ class Login extends Component {
     }, this.enableEnterButton);
   }
 
-  onHandleClick() {
+  async onHandleClick() {
     const { dispatch, history } = this.props;
-    const { email, name } = this.state;
-
-    dispatch(login({ email, name }));
-
+    const { email } = this.state;
+    dispatch(login(email));
+    const token = await tokenFetch();
+    dispatch(setAddToken(token));
     history.push('/game');
-    // console.log('Feito');
   }
 
   clickConfig() {
     const { history } = this.props;
-
     history.push('/config');
-    // console.log('Feito');
   }
 
   enableEnterButton() {
@@ -62,6 +59,8 @@ class Login extends Component {
   }
 
   render() {
+    const { getToken } = this.props;
+    console.log('getToken:', getToken);
     const {
       email,
       name,
@@ -119,6 +118,10 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  getToken: state.token.token,
+});
+
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
@@ -126,4 +129,4 @@ Login.propTypes = {
   }).isRequired,
 };
 
-export default connect()(Login);
+export default connect(mapStateToProps)(Login);
