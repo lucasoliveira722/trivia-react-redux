@@ -33,7 +33,7 @@ class Login extends Component {
   async onHandleClick() {
     const { dispatch, history } = this.props;
     const { email, name } = this.state;
-    dispatch(login(email, name));
+    dispatch(login({ email, name }));
     const token = await tokenFetch();
     dispatch(setAddToken(token));
     history.push('/game');
