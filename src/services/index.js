@@ -14,9 +14,20 @@ export const tokenFetch = async () => {
 export async function getQuestionsAPI(token) {
   const questionsFetch = await fetch(`${questionsRequest}${token}`);
   const questionJson = await questionsFetch.json();
-  if (questionJson.response_code === 0) {
-    console.log(questionJson);
-    return questionJson;
+  // if (questionJson.response_code === 0) {
+  //   console.log(questionJson);
+  return questionJson;
+  // }
+  // getQuestionsAPI(tokenFetch());
+}
+
+export async function newFunc() {
+  const magicNumber = 3;
+  const token = localStorage.getItem('token');
+  let request = await getQuestionsAPI(token);
+  if (request.response_code === magicNumber) {
+    const newToken = await tokenFetch();
+    request = await getQuestionsAPI(newToken);
   }
-  getQuestionsAPI(tokenFetch());
+  return request;
 }

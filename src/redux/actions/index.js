@@ -1,4 +1,5 @@
-import { getQuestionsAPI } from '../../services';
+// import { getQuestionsAPI } from '../../services';
+import { newFunc } from '/home/guilherme/Documentos/Trybe/project/sd-016-b-project-trivia-react-redux/src/services/index.js'
 
 export const LOGIN = 'LOGIN';
 export const ADD_TOKEN = 'ADD_TOKEN';
@@ -21,7 +22,7 @@ export const saveQuestions = (payload) => ({
 
 export const getQuestionsFromAPI = (token) => async (dispatch) => {
   try {
-    const getQuestions = await getQuestionsAPI(token);
+    const getQuestions = await newFunc(token);
     dispatch(saveQuestions(getQuestions));
   } catch (error) {
     console.error(error);
