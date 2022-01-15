@@ -6,9 +6,9 @@ import { setDataPlayers, getQuestionsFromAPI } from '../../redux/actions/index';
 class GameArea extends Component {
   constructor() {
     super();
-
     this.state = {
       questionId: 0,
+      count: 0,
       correctAnswer: '',
       allAnswer: '',
       disableBtn: false,
@@ -25,9 +25,10 @@ class GameArea extends Component {
   }
 
   async componentDidMount() {
-    const { questionsFromAPI } = this.props;
-    await questionsFromAPI(localStorage.getItem('token'));
+    const { dispatch } = this.props;
+    await dispatch(getQuestionsFromAPI(localStorage.getItem('token')));
     this.sortAnswer();
+    this.timer();
   }
 
   changeBorder = () => {
@@ -35,17 +36,39 @@ class GameArea extends Component {
     for (let i = 0; i < wrong.length; i += 1) {
       wrong[i].style.border = '3px solid rgb(255, 0, 0)';
     }
-    const correct = document.getElementsByClassName('correct')[0];
+    const correct = document.getElementById('correct');
     correct.style.border = '3px solid rgb(6, 240, 15)';
   }
 
-  // changeQuestion = () => {
-  //   const { questionId } = this.state;
-  //   const countId = questionId + 1;
-  //   this.setState({
-  //     questionId: countId,
-  //   });
-  // }
+  withoutBorder = () => {
+    const wrong = document.getElementsByClassName('wrong');
+    for (let i = 0; i < wrong.length; i += 1) {
+      wrong[i].style.border = '1px solid black';
+    }
+    const correct = document.getElementById('correct');
+    correct.style.border = '1px solid black';
+  }
+
+  changeQuestion = () => {
+    const { questionId } = this.state;
+    const magicNumber = 4;
+    const newMagicNumber = 5;
+    this.setState((prevState) => ({
+      count: prevState.count + 1,
+    }), () => {
+      const { count } = this.state;
+      if (count === newMagicNumber) {
+        this.sortAnswer();
+      }
+    });
+    if (questionId < magicNumber) {
+      this.setState((prevState) => ({
+        questionId: prevState.questionId + 1,
+      }), () => {
+        this.sortAnswer();
+      });
+    }
+  }
 
   calcPoints = () => {
     const { time, difficulty } = this.state;
@@ -64,10 +87,7 @@ class GameArea extends Component {
       dif = easy;
     }
     const points = magicNumber + (time * dif);
-    this.setState({
-      points,
-    });
-    const { email, name, setData } = this.props;
+    const { email, name, dispatch } = this.props;
     this.setState((prevState) => ({
       arr: [{
         nome: name,
@@ -78,10 +98,9 @@ class GameArea extends Component {
     }), () => {
       const { arr } = this.state;
       localStorage.setItem('ranking', JSON.stringify(arr));
-      setData(arr[0]);
+      dispatch(setDataPlayers(arr[0]));
     });
   }
-  // commit
 
   stopTimer = () => {
     this.setState({
@@ -90,10 +109,18 @@ class GameArea extends Component {
   }
 
   handleClick = ({ target }) => {
-    this.changeBorder();
-    this.stopTimer();
-    if (target.name === 'correct') {
-      this.calcPoints();
+    if (target.name !== 'next') {
+      this.changeBorder();
+      this.stopTimer();
+      if (target.name === 'correct') {
+        this.calcPoints();
+      }
+    } else {
+      this.setState({
+        click: false,
+      });
+      this.changeQuestion();
+      this.withoutBorder();
     }
   }
 
@@ -109,7 +136,6 @@ class GameArea extends Component {
       this.setState({
         time: sec,
       });
-      console.log(`00:${sec}`);
       sec -= 1;
       if (sec < 0) {
         this.setState({
@@ -122,43 +148,27 @@ class GameArea extends Component {
 
   sortAnswer = () => {
     const magicNumber = 0.5;
-    const { questions } = this.props;
-    const { questionId, allAnswer } = this.state;
-    if (allAnswer === '') {
-      const difficult = questions[questionId].difficulty;
-      const arrOfQuestions = [questions[questionId].incorrect_answers,
-        questions[questionId].correct_answer].flat();
-        // codigo de como dar um shufle no array tirado do site https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj
-      const shuffledArray = arrOfQuestions.sort(() => magicNumber - Math.random());
-      this.setState({
-        correctAnswer: questions[questionId].correct_answer,
-        allAnswer: shuffledArray,
-        difficulty: difficult,
-      });
+    const magicNumber2 = 5;
+    const { questions, newName } = this.props;
+    const { questionId, count } = this.state;
+    console.log(questionId);
+    if (count === magicNumber2) {
+      return newName();
     }
-    if (allAnswer !== '' && questionId === 0) {
-      const arrOfQuestions = [questions[questionId + 1].incorrect_answers,
-        questions[questionId + 1].correct_answer].flat();
-      const shuffledArray = arrOfQuestions.sort(() => magicNumber - Math.random());
-      this.setState({
-        correctAnswer: questions[questionId].correct_answer,
-        allAnswer: shuffledArray,
-      });
-    } else {
-      const arrOfQuestions = [questions[questionId].incorrect_answers,
-        questions[questionId].correct_answer].flat();
-      const shuffledArray = arrOfQuestions.sort(() => magicNumber - Math.random());
-      this.setState({
-        correctAnswer: questions[questionId].correct_answer,
-        allAnswer: shuffledArray,
-      });
-    }
-    this.timer();
+    const difficult = questions[questionId].difficulty;
+    const arrOfQuestions = [questions[questionId].incorrect_answers,
+      questions[questionId].correct_answer].flat();
+    const shuffledArray = arrOfQuestions.sort(() => magicNumber - Math.random());
+    this.setState({
+      correctAnswer: questions[questionId].correct_answer,
+      allAnswer: shuffledArray,
+      difficulty: difficult,
+    });
   }
 
   render() {
     const { questions } = this.props;
-    const { questionId, correctAnswer, allAnswer, points, disableBtn } = this.state;
+    const { questionId, correctAnswer, allAnswer, disableBtn, click } = this.state;
     if (questions.length > 0 && allAnswer.length > 0) {
       return (
         <main>
@@ -173,7 +183,7 @@ class GameArea extends Component {
               if (correctAnswer === e) {
                 return (
                   <button
-                    className="correct"
+                    id="correct"
                     key="correct"
                     name="correct"
                     type="button"
@@ -198,7 +208,15 @@ class GameArea extends Component {
                 </button>
               );
             }) }
-            <span>{points}</span>
+            { click && (
+              <button
+                type="button"
+                name="next"
+                data-testid="btn-next"
+                onClick={ this.handleClick }
+              >
+                next
+              </button>) }
           </div>
         </main>
       );
@@ -219,9 +237,5 @@ const mapStateToProps = (state) => ({
   email: state.loginReducer.email,
   name: state.loginReducer.name,
 });
-const mapDispatchToProps = (dispatch) => ({
-  questionsFromAPI: (token) => dispatch(getQuestionsFromAPI(token)),
-  setData: (player) => dispatch(setDataPlayers(player)),
-});
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameArea);
+export default connect(mapStateToProps)(GameArea);
