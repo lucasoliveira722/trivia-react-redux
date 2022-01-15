@@ -14,6 +14,9 @@ class GameArea extends Component {
       allAnswer: '',
       points: 0,
       disableBtn: false,
+      time: 30,
+      difficulty: '',
+      click: false,
     };
   }
 
@@ -23,7 +26,16 @@ class GameArea extends Component {
     this.sortAnswer();
   }
 
-  handleClick = async () => {
+  changeBorder = () => {
+    const wrong = document.getElementsByClassName('wrong');
+    for (let i = 0; i < wrong.length; i += 1) {
+      wrong[i].style.border = '3px solid rgb(255, 0, 0)';
+    }
+    const correct = document.getElementsByClassName('correct')[0];
+    correct.style.border = '3px solid rgb(6, 240, 15)';
+  }
+
+  changeQuestion = () => {
     // const { questionId, points } = this.state;
     // const countId = questionId + 1;
     // const countPoints = points + 1;
@@ -35,17 +47,57 @@ class GameArea extends Component {
     //     points: countPoints,
     //   });
     // }
-    const wrong = document.getElementsByClassName('wrong');
-    for (let i = 0; i < wrong.length; i += 1) {
-      wrong[i].style.border = '3px solid rgb(255, 0, 0)';
+  }
+
+  calcPoints = () => {
+    const { time, difficulty } = this.state;
+    const magicNumber = 10;
+    const hard = 3;
+    const medium = 2;
+    const easy = 1;
+    let dif;
+    if (difficulty === 'hard') {
+      dif = hard;
     }
-    const correct = document.getElementsByClassName('correct')[0];
-    correct.style.border = '3px solid rgb(6, 240, 15)';
+    if (difficulty === 'medium') {
+      dif = medium;
+    }
+    if (difficulty === 'easy') {
+      dif = easy;
+    }
+    const points = magicNumber + (time * dif);
+    this.setState({
+      points,
+    });
+    localStorage.setItem('ranking', points);
+  }
+
+  stopTimer = () => {
+    this.setState({
+      click: true,
+    });
+  }
+
+  handleClick = ({ target }) => {
+    this.changeBorder();
+    this.stopTimer();
+    if (target.name === 'correct') {
+      this.calcPoints();
+    }
   }
 
   timer = () => {
-    let sec = 30;
+    const magicNumber = 1000;
+    const magicSec = 30;
+    let sec = magicSec;
     const timer = setInterval(() => {
+      const { click } = this.state;
+      if (click === true) {
+        clearInterval(timer);
+      }
+      this.setState({
+        time: sec,
+      });
       console.log(`00:${sec}`);
       sec -= 1;
       if (sec < 0) {
@@ -54,7 +106,7 @@ class GameArea extends Component {
         });
         clearInterval(timer);
       }
-    }, 1000);
+    }, magicNumber);
   }
 
   sortAnswer = () => {
@@ -62,6 +114,7 @@ class GameArea extends Component {
     const { questions } = this.props;
     const { questionId, allAnswer } = this.state;
     if (allAnswer === '') {
+      const difficult = questions[questionId].difficulty;
       const arrOfQuestions = [questions[questionId].incorrect_answers,
         questions[questionId].correct_answer].flat();
         // codigo de como dar um shufle no array tirado do site https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj
@@ -69,6 +122,7 @@ class GameArea extends Component {
       this.setState({
         correctAnswer: questions[questionId].correct_answer,
         allAnswer: shuffledArray,
+        difficulty: difficult,
       });
     }
     if (allAnswer !== '' && questionId === 0) {
