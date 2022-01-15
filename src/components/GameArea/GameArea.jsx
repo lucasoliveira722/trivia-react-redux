@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getQuestionsFromAPI } from '/home/guilherme/Documentos/Trybe/project/sd-016-b-project-trivia-react-redux/src/redux/actions/index.js';
-// import { getQuestionsAPI, tokenFetch } from '/home/guilherme/Documentos/Trybe/project/sd-016-b-project-trivia-react-redux/src/services/index.js';
+import { setDataPlayers, getQuestionsFromAPI } from '../../redux/actions/index';
 
 class GameArea extends Component {
   constructor() {
@@ -12,11 +11,16 @@ class GameArea extends Component {
       questionId: 0,
       correctAnswer: '',
       allAnswer: '',
-      points: 0,
       disableBtn: false,
       time: 30,
       difficulty: '',
       click: false,
+      arr: [{
+        name: '',
+        assertions: 0,
+        score: 0,
+        gravatarEmail: '',
+      }],
     };
   }
 
@@ -35,19 +39,13 @@ class GameArea extends Component {
     correct.style.border = '3px solid rgb(6, 240, 15)';
   }
 
-  changeQuestion = () => {
-    // const { questionId, points } = this.state;
-    // const countId = questionId + 1;
-    // const countPoints = points + 1;
-    // this.setState({
-    //   questionId: countId,
-    // });
-    // if (name === 'correct') {
-    //   this.setState({
-    //     points: countPoints,
-    //   });
-    // }
-  }
+  // changeQuestion = () => {
+  //   const { questionId } = this.state;
+  //   const countId = questionId + 1;
+  //   this.setState({
+  //     questionId: countId,
+  //   });
+  // }
 
   calcPoints = () => {
     const { time, difficulty } = this.state;
@@ -69,8 +67,21 @@ class GameArea extends Component {
     this.setState({
       points,
     });
-    localStorage.setItem('ranking', points);
+    const { email, name, setData } = this.props;
+    this.setState((prevState) => ({
+      arr: [{
+        nome: name,
+        assertions: prevState.arr[0].assertions + 1,
+        score: prevState.arr[0].score + points,
+        gravatarEmail: email,
+      }],
+    }), () => {
+      const { arr } = this.state;
+      localStorage.setItem('ranking', JSON.stringify(arr));
+      setData(arr[0]);
+    });
   }
+  // commit
 
   stopTimer = () => {
     this.setState({
@@ -205,9 +216,12 @@ GameArea.propTypes = {
 
 const mapStateToProps = (state) => ({
   questions: state.questionsReducer.questions,
+  email: state.loginReducer.email,
+  name: state.loginReducer.name,
 });
 const mapDispatchToProps = (dispatch) => ({
   questionsFromAPI: (token) => dispatch(getQuestionsFromAPI(token)),
+  setData: (player) => dispatch(setDataPlayers(player)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameArea);
