@@ -17,7 +17,6 @@ class Header extends Component {
       username,
       points,
     } = this.props;
-    console.log(points);
     return (
       <div id="header">
         <img
