@@ -1,8 +1,36 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
 .red-border {
   border: 1px solid red;
 }
 
 .green-border {
   border: 1px solid green;
+}
+
+.container-main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.container-form {
+  align-items: center;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.container-butons {
+display: flex;
+}
+
+input {
+  width: 100%;
 }
 

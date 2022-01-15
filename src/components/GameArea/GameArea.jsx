@@ -22,13 +22,13 @@ class GameArea extends Component {
             <button type="button" data-testid="correct-answer">
               { questions[0].correct_answer }
             </button>
-            <button type="button" data-testid={`wrong-answer`}>
+            <button type="button" data-testid="wrong-answer">
               { questions[0].incorrect_answers[0] }
             </button>
-            <button type="button" data-testid={`wrong-answer`}>
+            <button type="button" data-testid="wrong-answer">
               { questions[0].incorrect_answers[1] }
             </button>
-            <button type="button" data-testid={`wrong-answer`}>
+            <button type="button" data-testid="wrong-answer">
               { questions[0].incorrect_answers[2] }
             </button>
           </div>

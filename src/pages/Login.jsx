@@ -67,16 +67,12 @@ class Login extends Component {
       enterDisabled,
     } = this.state;
     return (
-      <>
-        <header className="Login-header">
+      <div className="container-main">
+        <sec className="Login-header">
           {/* <img src={ logo } className="Login-logo" alt="logo" /> */}
           <h1>Trivia</h1>
-        </header>
-        <br />
-        <br />
-        <br />
-        <br />
-        <form>
+        </sec>
+        <form className="container-form">
           <label htmlFor="email">
             Email:
             <input
@@ -97,23 +93,25 @@ class Login extends Component {
               onChange={ this.onInputChange }
             />
           </label>
-          <button
-            data-testid="btn-play"
-            type="button"
-            disabled={ enterDisabled }
-            onClick={ this.onHandleClick }
-          >
-            Play
-          </button>
-          <button
-            data-testid="btn-settings"
-            type="button"
-            onClick={ this.clickConfig }
-          >
-            Config
-          </button>
+          <div className="container-butons">
+            <button
+              data-testid="btn-play"
+              type="button"
+              disabled={ enterDisabled }
+              onClick={ this.onHandleClick }
+            >
+              Play
+            </button>
+            <button
+              data-testid="btn-settings"
+              type="button"
+              onClick={ this.clickConfig }
+            >
+              Config
+            </button>
+          </div>
         </form>
-      </>
+      </div>
     );
   }
 }
