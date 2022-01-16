@@ -1,0 +1,99 @@
+.container-main-developers {
+  align-items: center;
+  background-color: white;
+  border: 5px solid #25076b;
+  border-radius: 15px;
+  bottom: 22px;
+  display: flex;
+  height: 10vh;
+  justify-content: space-around;
+  position: absolute;
+  width: 98%;
+}
+
+img {
+  animation: efectBorder  5s ease infinite;
+  border-radius: 50%;
+  height: 70px;
+  width: 70px;
+}
+
+@keyframes efectBorder {
+
+  0% {
+    background: #24292f;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #ffff52;
+    color: #999;
+  }
+
+  10% {
+    background: #24292f;
+    border-radius: 15px;
+    box-shadow: 0 0 30px #ffff52;
+    color: #999;
+  }
+
+  20% {
+    background: #24292f;
+    border-radius: 15px;
+    box-shadow: 0 0 50px #ffff52;
+    color: #999;
+  }
+
+  30% {
+    background: #24292f;
+    border-radius: 15px;
+    box-shadow: 0 0 50px #ffff52;
+    color: #999;
+  }
+
+  40% {
+    background: #24292f;
+    border-radius: 15px;
+    box-shadow: 0 0 80px #ffff52;
+    color: #999;
+  }
+
+  50% {
+    background: #24292f;
+    border-radius: 15px;
+    box-shadow: 0 0 110px #ffff52;
+    color: #999;
+  }
+
+  60% {
+    background: #24292f;
+    border-radius: 15px;
+    box-shadow: 0 0 100px #ffff52;
+    color: #999;
+  }
+
+  70% {
+    background: #24292f;
+    border-radius: 15px;
+    box-shadow: 0 0 80px #ffff52;
+    color: #999;
+  }
+
+  80% {
+    background: #24292f;
+    border-radius: 15px;
+    box-shadow: 0 0 50px #ffff52;
+    color: #999;
+  }
+
+  90% {
+    background: #24292f;
+    border-radius: 15px;
+    box-shadow: 0 0 30px #ffff52;
+    color: #999;
+  }
+
+  100% {
+    background: #24292f;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #ffff52;
+    color: #999;
+  }
+}

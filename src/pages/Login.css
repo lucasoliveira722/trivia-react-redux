@@ -1,3 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Roboto&family=Roboto+Mono:wght@500&display=swap') ;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
 .red-border {
   border: 1px solid red;
 }
@@ -6,3 +14,98 @@
   border: 1px solid green;
 }
 
+.Login-header {
+  height: 15vh;
+  text-align: center;
+  width: 20%;
+}
+
+.container-main {
+  align-items: center;
+  background-color: #25076b;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  height: 98vh;
+  justify-content: start;
+  margin-left: 8px;
+  width: 99%;
+}
+
+.container-form {
+  align-items: center;
+  background-color: white;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  height: 38vh;
+  justify-content: space-around;
+  width: 20%;
+}
+
+.container-butons {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 13vh;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+h1 {
+  color: white;
+  font-family: ' Architects Daughter' , cursive;
+  font-size: 55px;
+  font-weight: 950;
+  letter-spacing: 2rem;
+  margin-left: 18px;
+  text-align: center;
+}
+
+label {
+  color: #2f2f2f;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+button {
+  background-color: #2f2f2f;
+  border-radius: 7px;
+  color: white;
+  font-size: 20px;
+  font-weight: 400;
+  height: 5.5vh;
+  width: 220px;
+
+}
+
+input {
+  border: 1px solid #999;
+  border-radius: 12px;
+  font-size: 18px;
+  height: 5vh;
+  letter-spacing: 0.5em;
+  text-align: center;
+  width: 280px;
+}
+
+strong {
+  color: white;
+  font-size: 22px;
+  letter-spacing: 0.5em;
+}
+
+nav {
+  background-color: white;
+  border-radius: 12px;
+  border-top: 28px solid #25076b;
+  height: 10vh;
+  margin-bottom: 5%;
+  width: 100%;
+}
+
+img {
+  border-radius: 50%;
+  height: 90px;
+  width: 90px;
+}
