@@ -5,6 +5,7 @@ import './Login.css';
 import { login, setAddToken } from '../redux/actions';
 import { tokenFetch } from '../services/index';
 import BarraInfo from '../components/BarraInfo/BarraInfo';
+import InfoGrupo from '../components/Developers/InfoGrupo';
 
 class Login extends Component {
   constructor() {
@@ -115,6 +116,7 @@ class Login extends Component {
             </button>
           </div>
         </form>
+        <InfoGrupo />
       </div>
     );
   }

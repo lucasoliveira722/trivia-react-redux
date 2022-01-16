@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -38,8 +39,15 @@ class GameArea extends Component {
     return <h1>Carregando...</h1>;
   }
 }
+
 const mapStateToProps = (state) => ({
   questions: state.questionsReducer.questions,
 });
+
+GameArea.propTypes = {
+  questions: PropTypes.shape({
+    length: PropTypes.number,
+  }),
+}.isRequired;
 
 export default connect(mapStateToProps)(GameArea);
