@@ -61,8 +61,6 @@ class Login extends Component {
   }
 
   render() {
-    const { getToken } = this.props;
-    console.log('getToken:', getToken);
     const {
       email,
       name,
@@ -128,7 +126,6 @@ const mapStateToProps = (state) => ({
 
 Login.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  getToken: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,

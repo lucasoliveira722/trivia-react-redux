@@ -1,8 +1,10 @@
-import { getQuestionsAPI } from '../../services';
+// import { getQuestionsAPI } from '../../services';
+import { newFunc } from '../../services/index';
 
 export const LOGIN = 'LOGIN';
 export const ADD_TOKEN = 'ADD_TOKEN';
 export const SAVE_QUESTIONS = 'SAVE_QUESTIONS';
+export const SET_DATA = 'SET_DATA';
 
 export const login = (payload) => ({
   type: LOGIN,
@@ -19,9 +21,14 @@ export const saveQuestions = (payload) => ({
   payload,
 });
 
+export const setDataPlayers = (payload) => ({
+  type: SET_DATA,
+  payload,
+});
+
 export const getQuestionsFromAPI = (token) => async (dispatch) => {
   try {
-    const getQuestions = await getQuestionsAPI(token);
+    const getQuestions = await newFunc(token);
     dispatch(saveQuestions(getQuestions));
   } catch (error) {
     console.error(error);

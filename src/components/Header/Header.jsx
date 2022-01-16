@@ -15,8 +15,8 @@ class Header extends Component {
     const {
       email,
       username,
+      points,
     } = this.props;
-    // console.log(this.props);
     return (
       <div id="header">
         <img
@@ -25,7 +25,7 @@ class Header extends Component {
           alt="Imagem do jogador"
         />
         <h3 data-testid="header-player-name">{ username }</h3>
-        <h3 data-testid="header-score">0</h3>
+        <h3 data-testid="header-score">{points}</h3>
       </div>
     );
   }
@@ -34,11 +34,13 @@ class Header extends Component {
 Header.propTypes = {
   username: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
+  points: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   email: state.loginReducer.email,
   username: state.loginReducer.name,
+  points: state.player.score,
 });
 
 export default connect(mapStateToProps)(Header);
