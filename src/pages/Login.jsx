@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import './Login.css';
 import { login, setAddToken } from '../redux/actions';
 import { tokenFetch } from '../services/index';
+import BarraInfo from '../components/BarraInfo/BarraInfo';
 
 class Login extends Component {
   constructor() {
@@ -68,29 +69,32 @@ class Login extends Component {
     } = this.state;
     return (
       <div className="container-main">
-        <sec className="Login-header">
-          {/* <img src={ logo } className="Login-logo" alt="logo" /> */}
-          <h1>Trivia</h1>
-        </sec>
+        <BarraInfo />
+        <header className="Login-header">
+          <h1>Trivia!</h1>
+          <strong>Insira Email e Name User </strong>
+        </header>
         <form className="container-form">
           <label htmlFor="email">
-            Email:
+            <p>Email:</p>
             <input
               data-testid="input-gravatar-email"
               type="email"
               name="email"
               value={ email }
               onChange={ this.onInputChange }
+              placeholder="Email User"
             />
           </label>
           <label htmlFor="name">
-            Nome:
+            <p>Nome:</p>
             <input
               data-testid="input-player-name"
               type="name"
               name="name"
               value={ name }
               onChange={ this.onInputChange }
+              placeholder="Name User"
             />
           </label>
           <div className="container-butons">

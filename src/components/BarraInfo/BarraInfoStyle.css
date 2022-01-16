@@ -1,0 +1,129 @@
+nav {
+  align-items: center;
+  background-color: white;
+  border: 2px solid yellow;
+  display: flex;
+  justify-content: center;
+}
+
+.text-animation {
+  animation: fadeImgApresenta 8s ease infinite;
+  text-align: center;
+}
+
+.sonic-girando {
+  animation: fadeImg 8s ease infinite;
+}
+
+.sonic-apresentando {
+  animation: fadeImgApresenta 8s ease infinite;
+}
+
+@keyframes fadeImg {
+
+  0% {
+    margin-right: 600px;
+  }
+
+  10% {
+    margin-right: 500px;
+  }
+
+  20% {
+    margin-right: 400px;
+  }
+
+  30% {
+    margin-right: 300px;
+  }
+
+  40% {
+    margin-right: 200px;
+  }
+
+  50% {
+    margin-right: 100px;
+  }
+
+  60% {
+    margin-right: 50px;
+  }
+
+  70% {
+    margin-right: 25px;
+  }
+
+  80% {
+    margin-right: 15px;
+  }
+
+  90% {
+    margin-right: 5px;
+    opacity: 1;
+  }
+
+  100% {
+    margin-right: 1px;
+    opacity: 0;
+  }
+
+}
+
+@keyframes fadeImgApresenta {
+
+  0% {
+   
+    opacity: 0;
+  }
+
+  10% {
+   
+    opacity: 0;
+  }
+
+  20% {
+   
+    opacity: 0;
+  }
+
+  30% {
+   
+    opacity: 0;
+  }
+
+  40% {
+   
+    opacity: 0;
+  }
+
+  50% {
+   
+    opacity: 0;
+  }
+
+  60% {
+   
+    opacity: 0;
+  }
+
+  70% {
+   
+    opacity: 0;
+  }
+
+  80% {
+   
+    opacity: 0;
+  }
+
+  90% {
+   
+    opacity: 1;
+  }
+
+  100% {
+   
+    opacity: 1;
+  }
+
+}
