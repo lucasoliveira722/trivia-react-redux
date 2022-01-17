@@ -21,10 +21,12 @@ class Ranking extends Component {
 
   render() {
     const infos = JSON.parse(localStorage.getItem('ranking'));
+    const newInfos = infos.sort((a, b) => b.score - a.score);
+
     return (
       <div>
         <h1 data-testid="ranking-title">Página de Ranking</h1>
-        { infos.map((e, i) => (
+        { newInfos.map((e, i) => (
           <div key={ i }>
             <img src={ e.picture } alt="player" />
             <span data-testid={ `player-name-${i}` }>
