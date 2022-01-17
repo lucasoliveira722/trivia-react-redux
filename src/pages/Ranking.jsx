@@ -7,6 +7,10 @@ class Ranking extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentDidMount() {
+
+  }
+
   handleClick({ target: { name } }) {
     const { history } = this.props;
     console.log(history);
@@ -16,9 +20,20 @@ class Ranking extends Component {
   }
 
   render() {
+    const infos = JSON.parse(localStorage.getItem('ranking'));
     return (
       <div>
         <h1 data-testid="ranking-title">Página de Ranking</h1>
+        { infos.map((e, i) => (
+          <div key={ i }>
+            <img src={ e.picture } alt="player" />
+            <span data-testid={ `player-name-${i}` }>
+              { e.name }
+            </span>
+            <span data-testid={ `player-score-${i}` }>
+              { e.score }
+            </span>
+          </div>)) }
         <button
           name="home"
           type="button"

@@ -6,7 +6,30 @@ import Header from '../components/Header/Header';
 class Feedback extends Component {
   constructor() {
     super();
+
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.setLocalStorage();
+  }
+
+  setLocalStorage = () => {
+    const { name, score } = this.props;
+    const url = localStorage.getItem('url');
+    const oldInfo = JSON.parse(localStorage.getItem('ranking'));
+    const info = {
+      name,
+      score,
+      picture: url,
+    };
+    if (oldInfo !== null && oldInfo !== undefined) {
+      const teste = oldInfo.flat();
+      teste.push(info);
+      localStorage.setItem('ranking', JSON.stringify(teste));
+    } else {
+      localStorage.setItem('ranking', JSON.stringify([info]));
+    }
   }
 
   handleClick({ target: { name } }) {
@@ -61,10 +84,12 @@ Feedback.propTypes = {
     push: PropTypes.func,
   }).isRequired,
   score: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   assertions: state.player.assertions,
+  name: state.player.nome,
   score: state.player.score,
 });
 
