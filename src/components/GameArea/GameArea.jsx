@@ -29,6 +29,22 @@ class GameArea extends Component {
     await dispatch(getQuestionsFromAPI(localStorage.getItem('token')));
     this.sortAnswer();
     this.timer();
+    this.setInfo();
+  }
+
+  setInfo = () => {
+    const { email, name, dispatch } = this.props;
+    this.setState(() => ({
+      arr: [{
+        nome: name,
+        assertions: 0,
+        score: 0,
+        gravatarEmail: email,
+      }],
+    }), () => {
+      const { arr } = this.state;
+      dispatch(setDataPlayers(arr[0]));
+    });
   }
 
   changeBorder = () => {
@@ -57,9 +73,7 @@ class GameArea extends Component {
       count: prevState.count + 1,
     }), () => {
       const { count } = this.state;
-      if (count === newMagicNumber) {
-        this.sortAnswer();
-      }
+      if (count === newMagicNumber) { this.sortAnswer(); }
     });
     if (questionId < magicNumber) {
       this.setState((prevState) => ({
@@ -97,24 +111,19 @@ class GameArea extends Component {
       }],
     }), () => {
       const { arr } = this.state;
-      localStorage.setItem('ranking', JSON.stringify(arr));
       dispatch(setDataPlayers(arr[0]));
     });
   }
 
   stopTimer = () => {
-    this.setState({
-      click: true,
-    });
+    this.setState({ click: true });
   }
 
   handleClick = ({ target }) => {
     if (target.name !== 'next') {
       this.changeBorder();
       this.stopTimer();
-      if (target.name === 'correct') {
-        this.calcPoints();
-      }
+      if (target.name === 'correct') { this.calcPoints(); }
     } else {
       this.setState({
         click: false,
@@ -130,17 +139,11 @@ class GameArea extends Component {
     let sec = magicSec;
     const timer = setInterval(() => {
       const { click } = this.state;
-      if (click === true) {
-        clearInterval(timer);
-      }
-      this.setState({
-        time: sec,
-      });
+      if (click === true) { clearInterval(timer); }
+      this.setState({ time: sec });
       sec -= 1;
       if (sec < 0) {
-        this.setState({
-          disableBtn: true,
-        });
+        this.setState({ disableBtn: true });
         clearInterval(timer);
       }
     }, magicNumber);
@@ -151,10 +154,8 @@ class GameArea extends Component {
     const magicNumber2 = 5;
     const { questions, newName } = this.props;
     const { questionId, count } = this.state;
-    console.log(questionId);
-    if (count === magicNumber2) {
-      return newName();
-    }
+    console.log(questions);
+    if (count === magicNumber2) { return newName(); }
     const difficult = questions[questionId].difficulty;
     const arrOfQuestions = [questions[questionId].incorrect_answers,
       questions[questionId].correct_answer].flat();

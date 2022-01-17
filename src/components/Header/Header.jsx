@@ -8,7 +8,9 @@ import md5 from 'crypto-js/md5';
 class Header extends Component {
   getImageEmail = (email) => {
     const image = md5(email).toString();
-    return `https://www.gravatar.com/avatar/${image}`;
+    const url = `https://www.gravatar.com/avatar/${image}`;
+    localStorage.setItem('url', url);
+    return url;
   }
 
   render() {
